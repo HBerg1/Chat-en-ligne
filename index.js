@@ -182,12 +182,7 @@ io.on('connection', (socket) => {
             if (connected_users[ids][1] == pseudo) {
                 connected_users[ids][0] = socket.id;
 
-                /* Met l'utilisateur dans la table testonline qui permet de référencer les personnes en ligne */
-                var sql = "INSERT INTO testonline (id, pseudo) VALUES ('" + socket.id + "', '" + pseudo + "')";
-                con.query(sql, function (err, result) {
-                    if (err) throw err;
-                    console.log("1 utilisateur en ligne de test online");
-                });
+                
             }
         }
         io.emit('user-connected', connected_users);
@@ -208,11 +203,7 @@ io.on('connection', (socket) => {
             if (connected_users[mytoken][0] != 'empty') {
                 io.emit('user-disconnected', connected_users[mytoken][1]);
 
-                var sql = "DELETE FROM testonline WHERE id = '" + socket.id + "'";
-                con.query(sql, function (err, result) {
-                    if (err) throw err;
-                    console.log("1 utilisateur deconnecte de testonline");
-                })
+                
 
                 delete connected_users[mytoken];
             }
